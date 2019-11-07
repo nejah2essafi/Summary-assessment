@@ -60,7 +60,11 @@ function each(coll, f) {
   
   function wordLengths(str) {
       // TODO: your code here 
-  }
+      var array = str.split(" ")
+      return map(array, function (element){
+        return element.length;
+      });
+  };
   
   //=============================================================================
   /*                                  Q2                                    */
@@ -73,6 +77,15 @@ function each(coll, f) {
   
   function countOccurrences(string, character) {
       // your code is here
+      var array = string.split("")
+      var count=0
+       each(array, function (element){
+        if (element === character){
+          count++
+        }
+        
+      })
+       return count
   }
   
   //=============================================================================
@@ -85,6 +98,12 @@ function each(coll, f) {
   
   function wordsLongerThanThree(str) {
       // TODO: your code here 
+      var array = str.split(" ");
+      return filter(array, function(element){
+        if (element.length > 3){
+          return element
+        }
+      })
   }
   
   //=============================================================================
@@ -100,6 +119,10 @@ function each(coll, f) {
   
   function repeatString(str, count) { 
    // TODO: your code here 
+   if (count === 0){
+    return "";
+   }
+   return str + repeatString(str, count-1)
   } 
    
   
@@ -130,6 +153,36 @@ function each(coll, f) {
   
   // Write your code here .....
   
+  function makePizza(crust, size, numberOfSlice) {
+    var ingredients = [];
+    return {
+      crust:crust,
+      size:size,
+      numberOfSlice:numberOfSlice,
+      ingredients:ingredients,
+      addIngredients : function(ingredient){
+        ingredients.push(ingredient)
+      },
+      displayIngredients : function(){
+        console.log ("The ingredients are:"+ ingredients.join(","))
+      },
+      bakePizza : function(){
+        setTimeout(function(){
+          return "Your "+crust+" "+size+" "+numberOfSlice+" pizza is done"
+
+        },2000);
+      },
+      eatSlice : function(){
+        if (numberOfSlice>0){
+          numberOfSlice--
+          return "you can eat"
+        }else {
+          return "it's finish you can't eat"
+        }
+      }
+
+    };
+  }
   //=============================================================================
   /*                                  Q6                                      */
   //=============================================================================
@@ -155,6 +208,29 @@ function each(coll, f) {
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
   
   // Write your code here .....
+  function ReadingList(){
+    var readingList={};
+    readingList.read = 0;
+    readingList.unread = 0;
+    readingList.toRead = [];
+    readingList.currentRead = "";
+    readingList.readBooks = [];
+    readingList.AddBook = AddBook;
+    readingList.finishCurrentBook = finishCurrentBook;
+    return readingList
+
+  };
+  var AddBook = function(bookName){
+    this.toRead.push(bookName)
+    this.unread++
+  }; 
+
+  var finishCurrentBook = function(){
+    this.readbooks.push(this.currentRead)
+    this.read++
+    this.currentRead=this.toRead[0]
+    this.unread--
+  };
   
   //=============================================================================
   /*                                  Q7                                       */
@@ -175,7 +251,33 @@ function each(coll, f) {
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
-  
+  function makeSafe(sizeLimit){
+    var result = sizeLimit;
+    var toStore = 0;
+    var storage =[];
+    return function addItem(item, itemSize){
+      if (itemSize === "big"){
+        toStore = 3
+      }
+      if (itemSize === "medium"){
+        toStore = 2
+      }
+      if (itemSize === "small"){
+        toStore = 1
+      }
+      if (result > toStore){
+        result -= toStore
+        storage.push(item)
+      }else if (result === toStore){
+        result -= toStore
+        storage.push(item)
+        return storage.join(" ")
+      }else {
+        return "Can't fit"
+      }
+
+    }
+  }
   //=============================================================================
   /*                                  Q8                                       */
   //=============================================================================
@@ -216,10 +318,20 @@ function each(coll, f) {
   //================================================================================
   // Theoretical questions.
   // 1- In your own words,Why do we use Closures ?
+  //we use closure an inner function inside an outer function and the inner function can access to
+  //the local variable of the outer function and can acces to her parameter.
+  //so the outer function keep the variable in her local scope and keep them
+  //alive to be used by the inner function.
+
   
   // 2- In OOP, what does "this" refer to ?
+  //In oop "this" refer to the class
   
   // 3- What is jQuery?
+  // is a javascript libraries, and it's an open source . it make the javascript task very easier 
+  //because it wrap many tasks in javascript by an easy jquery code.
   
   // 4- what is the diffrence between Closure's methods and The OOP's methods?
+  // in the oop's are defined outside the class
+  //and the closure methods are inside the function
   
